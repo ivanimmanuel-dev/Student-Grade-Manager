@@ -1,12 +1,19 @@
+/*=========================================================================
+ *					STUDENT DATABASE MANAGEMENT SYSTEM
+ *=========================================================================*/
+
 #include <stdio.h>
 #include <string.h>
+#include "main.h"
 
-void db_init(StudentDB* db)                                                         // Initializes the student database by setting the count to 0.
+// Function to initialize the student database by setting the count to 0.
+void db_init(StudentDB* db)
 {
     db->count = 0;
 }
 
-int db_idExists(const StudentDB* db, int id)                                        // Checks if a student with the given ID exists in the database.
+// Function to check if a student with the given ID exists in the database.
+int db_idExists(const StudentDB* db, int id)
 {
 	for (int i = 0; i < db->count; i++)                                             // Iterates through the students in the database to check for a matching ID.
     {
@@ -18,7 +25,8 @@ int db_idExists(const StudentDB* db, int id)                                    
 	return 0;                                                                       // Returns 0 if no student with the given ID exists.
 }
 
-int db_addStudent(StudentDB* db, int id, const char* name)                          // Adds a new student to the database with the given ID and name.
+// Function to add a new student to the database with the given ID and name.
+int db_addStudent(StudentDB* db, int id, const char* name)
 {
 	if (db->count >= MAX_STUDENTS)                                                  // Checks if the database has reached its maximum capacity for students.
     {
@@ -46,7 +54,8 @@ int db_addStudent(StudentDB* db, int id, const char* name)                      
 	return 1;                                                                       // Returns 1 to indicate that the student was successfully added to the database.
 }
 
-int db_removeStudent(StudentDB* db, int id)                                         // Removes a student from the database based on the given ID.
+// Function to remove a student from the database based on the given ID.
+int db_removeStudent(StudentDB* db, int id)
 {
 	int index = db_findById(db, id);                                                // Finds the index of the student with the given ID in the database.
 	if (index == INVALID_VALUE)                                                     // Checks if the student with the given ID was not found in the database.
@@ -61,7 +70,8 @@ int db_removeStudent(StudentDB* db, int id)                                     
     return 1;                                                                       // Returns 1 to indicate that the student was successfully removed.
 }
 
-int db_recordGrade(StudentDB* db, int id, float grade)                              // Records a grade for a student with the given ID in the database.
+// Function to record a grade for a student with the given ID in the database.
+int db_recordGrade(StudentDB* db, int id, float grade)
 {
     if (grade < 0 || grade > 100)                                                   // Checks if the given grade is valid (between 0 and 100).
     {
@@ -82,7 +92,8 @@ int db_recordGrade(StudentDB* db, int id, float grade)                          
     return 1;                                                                       // Returns 1 to indicate that the grade was successfully recorded for the student.
 }
 
-float db_Average(const float grades[], int count)                                   // Calculates the average of the given grades.
+// Function to calculate the average of the given grades.
+float db_Average(const float grades[], int count)
 {
 	if (count <= 0)                                                                 // Checks if the count of grades is valid (greater than 0).
     {
@@ -96,7 +107,8 @@ float db_Average(const float grades[], int count)                               
     return sum / count;                                                             // Returns the average of the grades.
 }
 
-int db_findById(const StudentDB* db, int id)                                        // Finds the index of a student in the database based on the given ID.
+// Function to find the index of a student in the database based on the given ID.
+int db_findById(const StudentDB* db, int id)
 {
     for (int i = 0; i < db->count; i++)                                             // Iterates through the students in the database.
     {
@@ -108,7 +120,8 @@ int db_findById(const StudentDB* db, int id)                                    
 	return INVALID_VALUE;                    
 }
 
-int db_findByName(const StudentDB* db, const char* name)                            // Finds the index of a student in the database based on the given name.
+// Function to find the index of a student in the database based on the given name.
+int db_findByName(const StudentDB* db, const char* name)
 {
     if (name == NULL)
     {
@@ -124,7 +137,8 @@ int db_findByName(const StudentDB* db, const char* name)                        
     return INVALID_VALUE;
 }
 
-int db_updateName(StudentDB* db, int id, const char* newName)                       // Updates the name of a student in the database based on the given ID and new name.
+// Function to update the name of a student in the database based on the given ID and new name.
+int db_updateName(StudentDB* db, int id, const char* newName)
 {
 	if (newName == NULL || newName[0] == '\0')                                      // Checks if the given new name is valid (not NULL and not an empty string).
     {
