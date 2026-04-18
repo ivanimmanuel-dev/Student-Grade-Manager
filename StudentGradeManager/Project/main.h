@@ -13,7 +13,7 @@ extern "C" {
 #define MAX_NAME_LEN   64										// A constant to define the maximum length of a student's name, including the null terminator.
 #define MAX_GRADES     10										// A constant to define the maximum number of grades that can be recorded for each student.
 
-// A structure to represent a student, containing an ID, name, array of grades, count of grades, and average grade.
+// Structure that represents a student, containing an ID, name, array of grades, count of grades, and average grade.
 typedef struct
 {
 		int    id;
@@ -23,7 +23,7 @@ typedef struct
 		float  average;
 } Student;
 
-// A structure to represent the student database, containing an array of students and a count of how many students are currently stored.
+// Structure that represents the student database, containing an array of students and a count of how many students are currently stored.
 typedef struct													
 {
 		Student students[MAX_STUDENTS];
