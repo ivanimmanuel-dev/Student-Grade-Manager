@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "main.h"
+#include "student.h"
 
 // Function to initialize the student database by setting the count to 0.
 void db_init(StudentDB* db)
