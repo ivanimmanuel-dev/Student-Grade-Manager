@@ -32,6 +32,7 @@ typedef struct
 
 // Functions for the student database operations, including initialization, adding/removing students, recording grades, calculating averages, finding students by ID or name, and updating student names.
 void  db_init(StudentDB* db);
+int   db_idExists(const StudentDB* db, int id);
 int   db_addStudent(StudentDB* db, int id, const char* name);
 int   db_removeStudent(StudentDB* db, int id);
 int   db_recordGrade(StudentDB* db, int id, float grade);
@@ -39,7 +40,6 @@ float db_Average(const float grades[], int count);
 int   db_findById(const StudentDB* db, int id);
 int   db_findByName(const StudentDB* db, const char* name);
 int   db_updateName(StudentDB* db, int id, const char* newName);
-int   db_idExists(const StudentDB* db, int id);
 
 #if defined(__cplusplus)
 }
