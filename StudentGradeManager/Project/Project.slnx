@@ -3,6 +3,6 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Project.vcxproj" />
+  <Project Path="Project.vcxproj" Id="8c0db478-7aaf-4a74-b5ed-fad216806fba" />
   <Project Path="UnitTestDriver/UnitTestDriver.vcxproj" />
 </Solution>
