@@ -75,6 +75,26 @@ namespace UnitTestDriver
 			db_init(&db);
 			Assert::AreEqual(INVALID_VALUE, db_addStudent(&db, 0, "Sehejpreet"));
 		}
+		TEST_METHOD(Addstudent_nullname)
+		{
+			StudentDB db;
+			db_init(&db);
+			Assert::AreEqual(INVALID_VALUE, db_addStudent(&db, 0001, NULL));
+		}
+		TEST_METHOD(Addstudent_emptyname)
+		{
+			StudentDB db;
+			db_init(&db);
+			Assert::AreEqual(INVALID_VALUE, db_addStudent(&db, 0001, ""));
+		}
+		TEST_METHOD(Addstudent_fulldb)
+		{
+			StudentDB db;
+			db_init(&db);
+			for (int i = 1; i <= MAX_STUDENTS; i++)
+				db_addStudent(&db, i, "Test");
+			Assert::AreEqual(INVALID_VALUE, db_addStudent(&db, 9999, "Extra"));
+		}
 	};
 
 	TEST_CLASS(RemoveStudentTests)
@@ -200,6 +220,15 @@ namespace UnitTestDriver
 			db_addStudent(&db, 0001, "Sehejpreet");
 			Assert::AreEqual(INVALID_VALUE, db_recordGrade(&db, 0001, 101.0f));
 		}
+		TEST_METHOD(RecordGrade_MaxGradesExceeded)
+		{
+			StudentDB db;
+			db_init(&db);
+			db_addStudent(&db, 0001, "Sehejpreet");
+			for (int i = 0; i < MAX_GRADES; i++)
+				db_recordGrade(&db, 0001, 50.0f);
+			Assert::AreEqual(INVALID_VALUE, db_recordGrade(&db, 0001, 50.0f));
+		}
 	};
 
 	TEST_CLASS(CalcAverageTests)
@@ -252,4 +281,103 @@ namespace UnitTestDriver
 		}
 	};
 
+	TEST_CLASS(FindByNameTests)
+	{
+	public:
+
+		// Normal Cases
+		TEST_METHOD(FindByName_Normal)													// find the index of the student with the given name			
+		{
+			StudentDB db;
+			db_init(&db);
+			db_addStudent(&db, 0001, "Sehejpreet");
+			Assert::AreEqual(0, db_findByName(&db, "Sehejpreet"));
+		}
+		TEST_METHOD(FindByName_SecondStudent)											// find the index of the second student with the given name
+		{
+			StudentDB db;
+			db_init(&db);
+			db_addStudent(&db, 0001, "Sehejpreet");
+			db_addStudent(&db, 0002, "Prabhpreet");
+			Assert::AreEqual(1, db_findByName(&db, "Prabhpreet"));
+		}
+
+		// Invalid Input Cases
+		TEST_METHOD(FindByName_NotFound)												// trying to find a student who is not in the list will return invalid
+		{
+			StudentDB db;
+			db_init(&db);
+			Assert::AreEqual(INVALID_VALUE, db_findByName(&db, "Nobody"));
+		}
+		TEST_METHOD(FindByName_NullName)												// trying to find a student with null name will return invalid
+		{
+			StudentDB db;
+			db_init(&db);
+			Assert::AreEqual(INVALID_VALUE, db_findByName(&db, NULL));
+		}
+	};
+
+	TEST_CLASS(UpdateNameTests)	
+	{
+	public:
+		// Normal Cases
+		TEST_METHOD(UpdateName_Normal)													// update the name of the student with the given id
+		{
+			StudentDB db;
+			db_init(&db);
+			db_addStudent(&db, 0001, "Sehejpreet");
+			Assert::AreEqual(1, db_updateName(&db, 0001, "NewName"));
+		}
+
+		// Invalid Input Cases
+		TEST_METHOD(UpdateName_NotFound)												// trying to update the name of a student who is not in the list will return invalid
+		{
+			StudentDB db;
+			db_init(&db);
+			Assert::AreEqual(INVALID_VALUE, db_updateName(&db, 9999, "NewName"));
+		}
+		TEST_METHOD(UpdateName_NullName)												// trying to update the name of a student with null name will return invalid
+		{
+			StudentDB db;
+			db_init(&db);
+			db_addStudent(&db, 0001, "Sehejpreet");
+			Assert::AreEqual(INVALID_VALUE, db_updateName(&db, 0001, NULL));
+		}
+		TEST_METHOD(UpdateName_EmptyName)												// trying to update the name of a student with empty name will return invalid
+		{
+			StudentDB db;
+			db_init(&db);
+			db_addStudent(&db, 0001, "Sehejpreet");
+			Assert::AreEqual(INVALID_VALUE, db_updateName(&db, 0001, ""));
+		}
+	};
+
+	TEST_CLASS(FindByIdTests)
+	{
+	public:
+		// Normal Cases
+		TEST_METHOD(FindById_Normal)													// find the index of the student with the given id
+		{
+			StudentDB db;
+			db_init(&db);
+			db_addStudent(&db, 0001, "Sehejpreet");
+			Assert::AreEqual(0, db_findById(&db, 0001));
+		}
+		TEST_METHOD(FindById_SecondStudent)												// find the index of the second student with the given id
+		{
+			StudentDB db;
+			db_init(&db);
+			db_addStudent(&db, 0001, "Sehejpreet");
+			db_addStudent(&db, 0002, "Prabhpreet");
+			Assert::AreEqual(1, db_findById(&db, 0002));
+		}
+
+		// Invalid Input Cases
+		TEST_METHOD(FindById_NotFound)													// trying to find a student who is not in the list will return invalid
+		{
+			StudentDB db;
+			db_init(&db);
+			Assert::AreEqual(INVALID_VALUE, db_findById(&db, 9999));
+		}
+	};
 }
