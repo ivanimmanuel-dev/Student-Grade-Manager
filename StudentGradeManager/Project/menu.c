@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "menu.h"
 
 /* prints a simple line separator */
@@ -16,7 +17,7 @@ void menu_printHeader(void)
     printf("========================================================\n\n");
 }
 
-/* updated menu with more options */
+/* final menu with all options */
 int menu_showMain(void)
 {
     printf("\n  MENU\n");
@@ -24,10 +25,13 @@ int menu_showMain(void)
     printf("  [1] Add Student\n"
         "  [2] Remove Student\n"
         "  [3] Display All\n"
+        "  [4] Search Student\n"
+        "  [5] Record Grade\n"
+        "  [6] Update Student\n"
         "  [0] Quit\n");
     menu_printSeparator();
 
-    return menu_getInt("Enter choice: ", 0, 3);
+    return menu_getInt("Enter choice: ", 0, 6);
 }
 
 /* shows a single student */
@@ -137,4 +141,91 @@ void menu_displayAll(StudentDB* db)
 {
     printf("\n-- All Students --\n");
     menu_showAllStudents(db);
+}
+
+/* search by ID or name */
+void menu_searchStudent(StudentDB* db)
+{
+    printf("\n  -- Search Student --\n");
+    printf("  [1] Search by ID\n  [2] Search by Name\n");
+
+    int choice = menu_getInt("Choice: ", 1, 2);
+
+    if (choice == 1)
+    {
+        int id = menu_getInt("Enter ID: ", 1, 999999);
+        int index = db_findById(db, id);
+
+        if (index == INVALID_VALUE)
+            printf("Student not found.\n");
+        else
+            menu_showStudent(&db->students[index]);
+    }
+    else
+    {
+        char input[MAX_NAME_LEN];
+        menu_getString("Enter name: ", input, MAX_NAME_LEN);
+
+        int found = 0;
+
+        for (int i = 0; i < db->count; i++)
+        {
+            char stored[MAX_NAME_LEN], search[MAX_NAME_LEN];
+            int k;
+
+            for (k = 0; db->students[i].name[k]; k++)
+                stored[k] = (char)tolower(db->students[i].name[k]);
+            stored[k] = '\0';
+
+            for (k = 0; input[k]; k++)
+                search[k] = (char)tolower(input[k]);
+            search[k] = '\0';
+
+            if (strstr(stored, search))
+            {
+                menu_showStudent(&db->students[i]);
+                found = 1;
+            }
+        }
+
+        if (!found)
+            printf("No match found.\n");
+    }
+}
+
+/* record a grade */
+void menu_recordGrade(StudentDB* db)
+{
+    int id = menu_getInt("Enter ID: ", 1, 999999);
+    int index = db_findById(db, id);
+
+    if (index == INVALID_VALUE)
+    {
+        printf("Student not found.\n");
+        return;
+    }
+
+    float grade = menu_getFloat("Enter grade: ", 0, 100);
+    db_recordGrade(db, id, grade);
+
+    printf("Grade recorded. New average: %.2f\n", db->students[index].average);
+}
+
+/* update student name */
+void menu_updateStudent(StudentDB* db)
+{
+    char name[MAX_NAME_LEN];
+    int id = menu_getInt("Enter ID: ", 1, 999999);
+    int index = db_findById(db, id);
+
+    if (index == INVALID_VALUE)
+    {
+        printf("Student not found.\n");
+        return;
+    }
+
+    menu_getString("Enter new name: ", name, MAX_NAME_LEN);
+    db_updateName(db, id, name);
+
+    printf("Student updated.\n");
 }

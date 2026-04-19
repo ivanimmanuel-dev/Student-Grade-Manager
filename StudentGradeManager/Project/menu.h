@@ -28,6 +28,11 @@ extern "C" {
 	void menu_removeStudent(StudentDB* db);
 	void menu_displayAll(StudentDB* db);
 
+	/* Search / grade / update */
+	void menu_searchStudent(StudentDB* db);
+	void menu_recordGrade(StudentDB* db);
+	void menu_updateStudent(StudentDB* db);
+
 #if defined(__cplusplus)
 }
 #endif
