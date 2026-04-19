@@ -6,6 +6,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "../student.h"
+#include "../menu.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

@@ -7,6 +7,7 @@
 #include <stdio.h>      // for input/output functions like printf, scanf
 #include <string.h>     // for string handling functions like strlen, strstr
 #include <ctype.h>      // for character functions like tolower
+#include "student.h"    // custom header for student database declarations
 #include "menu.h"       // custom header for menu-related declarations
 
 // prints a simple line separator
@@ -19,7 +20,7 @@ void menu_printSeparator(void)
 void menu_printHeader(void)
 {
     printf("\n========================================================\n");
-    printf("           STUDENT GRADE MANAGER\n"); // title
+    printf("           STUDENT GRADE MANAGER\n");
     printf("========================================================\n\n");
 }
 
