@@ -95,9 +95,10 @@ int db_recordGrade(StudentDB* db, int id, float grade)
 // Function to calculate the average of the given grades.
 float db_Average(const float grades[], int count)
 {
-	if (count <= 0)                                                                 // Checks if the count of grades is valid (greater than 0).
+    if(grades == NULL || count<=0)
+                                                               // Checks if the count of grades is valid (greater than 0).
     {
-        return 0.0f;
+        return (float)INVALID_VALUE;
     }
 	float sum = 0;                                                                  // Initializes the sum of grades to 0.
 	for (int i = 0; i < count; i++)                                                 // Iterates through the grades to calculate the sum.
