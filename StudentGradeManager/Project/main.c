@@ -10,42 +10,42 @@
 // Main function: Entry point of the program
 int main(void) 
 {
-	StudentDB db;																			// structure to store data of the students
+	StudentDB db;																				// structure to store data of the students
 	db_init(&db);
-	menu_printHeader();																		// function call to display the header
-	printf(" Welcome to Student grade manager! Use the menu below To manage the students"); // message to be printed after haeader
-	int running = 1;																		// variable set to continue the loop until the user wants to quit
+	menu_printHeader();																			// function call to display the header
+	printf(" Welcome to Student grade manager! Use the menu below To manage the students.\n");	// message to be printed after haeader
+	int running = 1;																			// variable set to continue the loop until the user wants to quit
 	while (running) 
 	{
-		int choice = menu_showMain();														// shows the functions this code can perform, and takes entry from the user
+		int choice = menu_showMain();															// shows the functions this code can perform, and takes entry from the user
 		switch (choice)
 		{
 		case 1:
-			menu_addStudent(&db);															// adds new student
+			menu_addStudent(&db);																// adds new student
 			break;
 		case 2:
-			menu_removeStudent(&db);														// removes a student
+			menu_removeStudent(&db);															// removes a student
 			break;
 		case 3:
-			menu_displayAll(&db);															// display all the students
+			menu_displayAll(&db);																// display all the students
 			break;
 		case 4:
-			menu_searchStudent(&db);														// search for the student in the stored data
+			menu_searchStudent(&db);															// search for the student in the stored data
 			break;
 		case 5:
-			menu_recordGrade(&db);															// records grades of the students
+			menu_recordGrade(&db);																// records grades of the students
 			break;
 		case 6:
-			menu_updateStudent(&db);														// update student's name
+			menu_updateStudent(&db);															// update student's name
 			break;
-		case 0:																				// when the user wants to exit 
+		case 0:																					// when the user wants to exit 
 			printf("\n Thank you\n");
 			running = 0;
 			break;
-		default:																			// default case if the input is wrong
+		default:																				// default case if the input is wrong
 			printf("invalid choice");
 			break;
 		}
 	}
-	return 0;																				// return 0 to indicate successful execution of the program
+	return 0;																					// return 0 to indicate successful execution of the program
 }
