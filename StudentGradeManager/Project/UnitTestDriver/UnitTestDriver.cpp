@@ -168,7 +168,7 @@ namespace UnitTestDriver
 		{
 			StudentDB db;
 			db_init(&db);
-			db_addStudent(&db, 1001, "Sehejpreet");
+			db_addStudent(&db, 0001, "Sehejpreet");
 			Assert::AreEqual(1, db_recordGrade(&db, 0001, 0.0f));
 		}
 
