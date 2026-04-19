@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "menu.h"
 #include <string.h>
+#include "menu.h"
 
 /* prints a simple line separator */
 void menu_printSeparator(void)
@@ -16,16 +16,18 @@ void menu_printHeader(void)
     printf("========================================================\n\n");
 }
 
-/* basic menu (will expand later) */
+/* updated menu with more options */
 int menu_showMain(void)
 {
     printf("\n  MENU\n");
     menu_printSeparator();
-    printf("  [1] Add Student\n");
-    printf("  [0] Quit\n");
+    printf("  [1] Add Student\n"
+        "  [2] Remove Student\n"
+        "  [3] Display All\n"
+        "  [0] Quit\n");
     menu_printSeparator();
 
-    return 0; // temporary return
+    return menu_getInt("Enter choice: ", 0, 3);
 }
 
 /* shows a single student */
@@ -97,4 +99,42 @@ void menu_getString(const char* prompt, char* buf, int size)
     printf("%s", prompt);
     if (fgets(buf, size, stdin))
         buf[strcspn(buf, "\n")] = '\0';
+}
+
+/* adds a student to database */
+void menu_addStudent(StudentDB* db)
+{
+    char name[MAX_NAME_LEN];
+    int id = menu_getInt("Enter ID: ", 1, 999999);
+
+    if (db_idExists(db, id))
+    {
+        printf("Error: ID already exists.\n");
+        return;
+    }
+
+    menu_getString("Enter name: ", name, MAX_NAME_LEN);
+
+    if (db_addStudent(db, id, name) == INVALID_VALUE)
+        printf("Error adding student.\n");
+    else
+        printf("Student added successfully.\n");
+}
+
+/* removes a student */
+void menu_removeStudent(StudentDB* db)
+{
+    int id = menu_getInt("Enter ID: ", 1, 999999);
+
+    if (db_removeStudent(db, id) == INVALID_VALUE)
+        printf("Student not found.\n");
+    else
+        printf("Student removed.\n");
+}
+
+/* displays all students */
+void menu_displayAll(StudentDB* db)
+{
+    printf("\n-- All Students --\n");
+    menu_showAllStudents(db);
 }

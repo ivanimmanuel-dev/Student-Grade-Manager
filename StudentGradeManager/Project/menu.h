@@ -23,6 +23,11 @@ extern "C" {
 	/* Main menu */
 	int menu_showMain(void);
 
+	/* Menu actions */
+	void menu_addStudent(StudentDB* db);
+	void menu_removeStudent(StudentDB* db);
+	void menu_displayAll(StudentDB* db);
+
 #if defined(__cplusplus)
 }
 #endif
