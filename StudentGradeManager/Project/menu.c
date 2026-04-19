@@ -52,6 +52,20 @@ void menu_showStudent(const Student* s)
     printf("  ID      : %d\n", s->id);        // student ID
     printf("  Name    : %s\n", s->name);      // student name
     printf("  Average : %.2f\n", s->average); // student average grade
+    printf("  Grades  : ");
+	if (s->gradeCount == 0)                             // if no grades recorded, print "none"
+    {
+        printf("none\n");
+    }
+	else                                                // if grades exist, print them separated by commas
+    {
+        for (int i = 0; i < s->gradeCount; i++)
+        {
+            printf("%.2f", s->grades[i]);
+            if (i < s->gradeCount - 1) printf(", ");
+        }
+        printf("\n");
+    }
 
 	// prints a separator after each student for better readability
     menu_printSeparator();
