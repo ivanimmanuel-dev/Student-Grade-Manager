@@ -132,6 +132,7 @@
     <ClCompile Include="student.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="main.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="student.h" />
   </ItemGroup>
