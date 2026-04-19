@@ -1,6 +1,7 @@
-/*=========================================================================
- *					STUDENT DATABASE MANAGEMENT SYSTEM
- *=========================================================================*/
+/*==========================================================================================
+ *  STUDENT DATABASE MANAGEMENT SYSTEM: Functions for managing student records and grades
+ *                      Author: Ivan Immanuel Shaji
+ *==========================================================================================*/
 
 #include <stdio.h>
 #include <string.h>
@@ -95,8 +96,7 @@ int db_recordGrade(StudentDB* db, int id, float grade)
 // Function to calculate the average of the given grades.
 float db_Average(const float grades[], int count)
 {
-    if(grades == NULL || count<=0)
-                                                               // Checks if the count of grades is valid (greater than 0).
+    if(grades == NULL || count<=0)                                                  // Checks if the count of grades is valid (greater than 0).
     {
         return (float)INVALID_VALUE;
     }
