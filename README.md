@@ -2,7 +2,6 @@
 
 A terminal-based student grade management system written in C/C++. Designed for simplicity and speed — no GUI, no database, just a clean CLI interface for managing student records and grades straight from your terminal.
 
----
 
 ## 🚀 Features
 
@@ -12,14 +11,12 @@ A terminal-based student grade management system written in C/C++. Designed for 
 - Terminal UI (TUI) for easy navigation
 - Lightweight — runs entirely in the terminal with no external dependencies
 
----
 
 ## 🛠️ Built With
 
 - **C / C++**
 - Terminal-based UI (TUI)
 
----
 
 ## 📁 Project Structure
 
@@ -31,7 +28,6 @@ Student-Grade-Manager/
         └── ...                 # Supporting source files
 ```
 
----
 
 ## ⚙️ Getting Started
 
@@ -60,7 +56,6 @@ g++ main.cpp -o grade_manager
 ./grade_manager
 ```
 
----
 
 ## 💻 Usage
 
@@ -71,7 +66,6 @@ Once running, the program presents a menu-driven interface. Use the numbered opt
 3. View student records and calculated averages
 4. Exit the program
 
----
 
 ## 📄 License
 
